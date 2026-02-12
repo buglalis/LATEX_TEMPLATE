@@ -96,8 +96,8 @@
     \noindent%
     \begingroup%
     \renewcommand{\arraystretch}{1.5}%
-
     \setlength{\tabcolsep}{2pt}% 
+    % @{\hspace{2pt}} 
     \begin{tabularx}{\linewidth}{@{\hspace{2pt}} X >{\raggedleft\arraybackslash}p{100pt} @{\hspace{2pt}}}
         \rowcolor{OlymBlue}%
         \textcolor{white}{\fontsize{14pt}{17pt}\selectfont\HeaderFont #1} & 
@@ -108,7 +108,7 @@
         } \tabularnewline
     \end{tabularx}%
     \endgroup%
-    % \par\vspace{12pt}%
+ 
 }
 
 
@@ -124,6 +124,8 @@
     \end{tikzpicture}%
     \par\vspace{0.6em}%
 }
+
+
 
 \newcommand{\ConditionBlock}{\OlymHeaderBlock{OlymOrange}{Условие}}
 \newcommand{\SolutionBlock}{\OlymHeaderBlock{OlymDarkGray}{Решение}}
