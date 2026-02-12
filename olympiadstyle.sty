@@ -1,0 +1,132 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{olympiadstyle}[2026/02/11 Custom Olympiad Style (XeLaTeX)]
+
+% ==========================================
+% 1. ШРИФТЫ И ЯЗЫК
+% ==========================================
+\RequirePackage{fontspec} 
+\RequirePackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+\RequirePackage{tabularx}
+\RequirePackage{longtable}
+
+\RequirePackage{amsmath}
+\RequirePackage[version=4]{mhchem}
+
+\setmainfont{SourceSerifPro}[
+    Path = ./fonts/SourceSerifPro/,
+    Extension = .ttf,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+    ItalicFont = *-Italic,
+    BoldItalicFont = *-BoldItalic
+]
+
+\newcommand{\HeaderFont}{\bfseries}
+
+% ==========================================
+% 2. ОФОРМЛЕНИЕ
+% ==========================================
+\RequirePackage{geometry}      
+\geometry{
+    top=2cm,    
+    bottom=2cm,
+    left=3cm,   
+    right=1.5cm 
+}
+\setlength{\parindent}{0pt} 
+
+\RequirePackage[table]{xcolor} 
+\RequirePackage{tikz}          
+\RequirePackage{titlesec}      
+\RequirePackage{caption}       
+\RequirePackage{anyfontsize}   
+\RequirePackage{array}      
+
+% ==========================================
+% НАСТРОЙКИ ОБЫЧНОГО ТЕКСТА
+% ==========================================
+\RequirePackage{indentfirst} 
+\RequirePackage{setspace}   
+\setstretch{1.1}             
+
+
+\setlength{\parindent}{1.25cm} 
+
+
+\setlength{\parskip}{0pt} 
+
+
+\setmainfont{SourceSerifPro}[
+    Path = ./fonts/SourceSerifPro/,
+    Extension = .ttf,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold,
+    ItalicFont = *-Italic,
+    BoldItalicFont = *-BoldItalic,
+    Ligatures=TeX 
+]
+
+% ==========================================
+% 3. ЦВЕТА
+% ==========================================
+\definecolor{OlymBlue}{RGB}{58, 133, 190}       
+\definecolor{OlymLightBlue}{RGB}{236, 246, 251} 
+\definecolor{OlymOrange}{RGB}{242, 116, 92}     
+\definecolor{OlymDarkGray}{RGB}{88, 88, 88}
+\definecolor{TableGray}{RGB}{242, 242, 242} 
+
+% ==========================================
+% 4. ЗАГОЛОВКИ СЕКЦИЙ 
+% ==========================================
+\titleformat{\section}[block]
+  {\fontsize{14pt}{17pt}\selectfont\HeaderFont\MakeUppercase} 
+  {} 
+  {0pt} 
+  {} 
+
+\titlespacing*{\section}{0pt}{12pt}{8pt}
+
+% ==========================================
+% 5. БЛОКИ ЗАДАЧ И РЕШЕНИЙ
+% ==========================================
+\newcommand{\TaskBlock}[3]{%
+    \par\vspace{0.5em}%
+    \noindent%
+    \begingroup%
+    \renewcommand{\arraystretch}{1.5}%
+
+    \setlength{\tabcolsep}{2pt}% 
+    \begin{tabularx}{\linewidth}{@{\hspace{2pt}} X >{\raggedleft\arraybackslash}p{100pt} @{\hspace{2pt}}}
+        \rowcolor{OlymBlue}%
+        \textcolor{white}{\fontsize{14pt}{17pt}\selectfont\HeaderFont #1} & 
+        \textcolor{white}{\fontsize{14pt}{17pt}\selectfont\HeaderFont #2} \tabularnewline
+        \rowcolor{OlymLightBlue}%
+        \multicolumn{2}{@{\hspace{2pt}} p{\dimexpr\linewidth-4pt} @{\hspace{2pt}}}{%
+            \fontsize{12pt}{14pt}\selectfont\textit{#3}%
+        } \tabularnewline
+    \end{tabularx}%
+    \endgroup%
+    % \par\vspace{12pt}%
+}
+
+
+\newcommand{\OlymHeaderBlock}[2]{%
+    \par\vspace{1.2em}%
+    \noindent%
+    \begin{tikzpicture}
+        \node[fill=#1, text=white, font=\HeaderFont, 
+              font=\fontsize{11pt}{13pt}\selectfont\HeaderFont,
+              inner ysep=8pt, 
+              inner xsep=12pt, anchor=south west] (box) at (0,0) {#2};
+        \draw[#1, line width=1.5pt] (box.south west) -- (\linewidth, 0);
+    \end{tikzpicture}%
+    \par\vspace{0.6em}%
+}
+
+\newcommand{\ConditionBlock}{\OlymHeaderBlock{OlymOrange}{Условие}}
+\newcommand{\SolutionBlock}{\OlymHeaderBlock{OlymDarkGray}{Решение}}
+\newcommand{\AnswerBlock}{\OlymHeaderBlock{OlymBlue}{Ответ}}
+
+\endinput
